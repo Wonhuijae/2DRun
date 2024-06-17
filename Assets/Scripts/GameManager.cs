@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public Image ProgBar;
 
     private float playTime;
+    private bool isGameOver = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -41,11 +42,13 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         Time.timeScale = 0f;
+        isGameOver = true;
     }
 
     public void GameClear()
     {
         Time.timeScale = 0f;
+        isGameOver = true;
     }
 
     public void GamePause()
@@ -68,5 +71,10 @@ public class GameManager : MonoBehaviour
     public void LoadTitle()
     {
         SceneManager.LoadScene("TitleScene");
+    }
+
+    public bool IsGameOver()
+    {
+        return isGameOver;
     }
 }

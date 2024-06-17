@@ -18,13 +18,19 @@ public class ParticleController : MonoBehaviour
         
     }
 
-    void OnParticleCollision(GameObject other)
+    void OnTriggerStay2D(Collider2D other)
     {
-        Debug.Log("Touch");
         if(other.tag == "Player")
         {
             other.GetComponent<Rigidbody2D>().gravityScale = 10f;
-            Debug.Log(other.GetComponent<Rigidbody2D>().gravityScale);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if( other.tag =="Player")
+        {
+            other.GetComponent<Rigidbody2D>().gravityScale = 0.2f;
         }
     }
 }

@@ -26,6 +26,7 @@ public class UpBtn : MonoBehaviour
 
     private float ScreenCenter;
     private bool pressdPause = false;
+    private GameManager gm;
 
     // Start is called before the first frame update
     void Awake()
@@ -35,6 +36,11 @@ public class UpBtn : MonoBehaviour
         ScreenCenter = screenWidth / 2;
 
         curHp = hp;
+    }
+
+    void Start()
+    {
+        gm = GameManager.Instance;   
     }
 
     // Update is called once per frame
@@ -99,6 +105,7 @@ public class UpBtn : MonoBehaviour
         Debug.Log("Die");
         isDead = true;
         plAs.PlayOneShot(plDeath);
+        gm.GameOver();
     }
 
     public float GetHP()
