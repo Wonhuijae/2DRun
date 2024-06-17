@@ -17,14 +17,15 @@ public class UpBtn : MonoBehaviour
     private Rigidbody2D plRb;
     private Animator plAnimator;
 
-    private float upForce = 10f;
-    private float downForce = -2f;
+    private float upForce = 150f;
+    private float downForce = -10f;
     private bool isDead = false;
     
     private float cnt = 0;
     private float curHp = 0;
 
     private float ScreenCenter;
+    private bool pressdPause = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -55,8 +56,15 @@ public class UpBtn : MonoBehaviour
             }
             else
             {
-                PlayerUp(); //오른쪽
-                BtnUp.GetComponent<ButtonController>().ChangeButtonState(true);
+                if (!pressdPause)
+                {
+                    PlayerUp(); //오른쪽
+                    BtnUp.GetComponent<ButtonController>().ChangeButtonState(true);
+                }
+                else
+                {
+
+                }
             }
         }
         else
@@ -105,6 +113,7 @@ public class UpBtn : MonoBehaviour
 
     public void Flooding()
     {
+        Debug.Log("침몰");
         Die();
     }
 
@@ -116,5 +125,15 @@ public class UpBtn : MonoBehaviour
             plAs.PlayOneShot(plHit);
             HpFront.GetComponent<BarController>().SetCurHP(curHp);
         }
+    }
+
+    public void PausedPress()
+    {
+        pressdPause = true;
+    }
+
+    public void PausedRelease()
+    {
+        pressdPause = false;
     }
 }

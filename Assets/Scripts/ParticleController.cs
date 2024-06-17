@@ -18,21 +18,13 @@ public class ParticleController : MonoBehaviour
         
     }
 
-    private void OnParticleCollision(GameObject other)
+    void OnParticleCollision(GameObject other)
     {
         Debug.Log("Touch");
         if(other.tag == "Player")
         {
-            other.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -10));
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("TouchBottom");
-        if (collision.gameObject.tag == "Player")
-        { 
-            collision.gameObject.GetComponent<UpBtn>().Flooding();
+            other.GetComponent<Rigidbody2D>().gravityScale = 10f;
+            Debug.Log(other.GetComponent<Rigidbody2D>().gravityScale);
         }
     }
 }

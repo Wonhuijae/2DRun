@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,7 +15,7 @@ public class GameManager : MonoBehaviour
     private float playTime;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (Instance == null)
         {
@@ -34,5 +36,37 @@ public class GameManager : MonoBehaviour
     {
         playTime += Time.deltaTime;
         ProgBar.GetComponent<BarController>().SetCurProg(playTime);
+    }
+
+    public void GameOver()
+    {
+        Time.timeScale = 0f;
+    }
+
+    public void GameClear()
+    {
+        Time.timeScale = 0f;
+    }
+
+    public void GamePause()
+    {
+        Time.timeScale = 0f;
+        Player.GetComponent<UpBtn>().PausedPress();
+    }
+
+    public void GameAgain()
+    {
+        Time.timeScale = 1f;
+        Player.GetComponent<UpBtn>().PausedRelease();
+    }
+
+    public void GameExit()
+    {
+        Application.Quit();
+    }
+
+    public void LoadTitle()
+    {
+        SceneManager.LoadScene("TitleScene");
     }
 }
