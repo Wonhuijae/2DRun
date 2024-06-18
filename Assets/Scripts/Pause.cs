@@ -42,4 +42,9 @@ public class Pause : MonoBehaviour
     {
         gm.GameExit();
     }
+
+    public void Retry()
+    {
+        gm.ReLoad();
+    }
 }

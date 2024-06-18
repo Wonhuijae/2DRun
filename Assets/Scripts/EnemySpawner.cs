@@ -43,7 +43,7 @@ public class EnemySpawner : MonoBehaviour
     {
         if (GameManager.Instance.IsGameOver()) return;
 
-        if(Time.time >= lastSpawn+TimeBetweenSpawn)
+        if (Time.time >= lastSpawn + TimeBetweenSpawn) 
         {
             lastSpawn = Time.time;
 

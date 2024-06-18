@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject Player;
     public Image HpBar;
     public Image ProgBar;
+    public GameObject GameOverUI;
 
     private float playTime;
     private bool isGameOver = false;
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        initGame();
         if (Instance == null)
         {
             Instance = this;
@@ -26,9 +28,11 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        HpBar.GetComponent<BarController>().Setdefault(Player.GetComponent<UpBtn>().hp);
-        ProgBar.GetComponent<BarController>().Setdefault(60f);
+        if (SceneManager.GetActiveScene().name == "PlayScene")
+        {
+            HpBar.GetComponent<BarController>().Setdefault(Player.GetComponent<UpBtn>().hp);
+            ProgBar.GetComponent<BarController>().Setdefault(60f);
+        }
         playTime = 0f;
 }
 
@@ -43,6 +47,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         isGameOver = true;
+        GameOverUI.SetActive(true);
     }
 
     public void GameClear()
@@ -76,5 +81,17 @@ public class GameManager : MonoBehaviour
     public bool IsGameOver()
     {
         return isGameOver;
+    }
+
+    public void ReLoad()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    void initGame()
+    {
+        Time.timeScale = 1f;
+        playTime = 0f;
+        isGameOver = false;
     }
 }

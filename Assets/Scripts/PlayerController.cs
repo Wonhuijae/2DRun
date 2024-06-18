@@ -27,6 +27,8 @@ public class UpBtn : MonoBehaviour
     private float ScreenCenter;
     private bool pressdPause = false;
     private GameManager gm;
+    private bool isHit = false;
+    private float HitTime = 0f;
 
     // Start is called before the first frame update
     void Awake()
@@ -34,13 +36,14 @@ public class UpBtn : MonoBehaviour
         plRb = gameObject.GetComponent<Rigidbody2D>();
         float screenWidth = Screen.width;
         ScreenCenter = screenWidth / 2;
-
-        curHp = hp;
+        plAnimator = gameObject.GetComponent<Animator>();
     }
 
     void Start()
     {
-        gm = GameManager.Instance;   
+        PlayerInit();
+        gm = GameManager.Instance;
+        
     }
 
     // Update is called once per frame
@@ -87,6 +90,10 @@ public class UpBtn : MonoBehaviour
             curHp--;
             HpFront.GetComponent<BarController>().SetCurHP(curHp);
         }
+
+        if (Time.time >= HitTime + 3f) isHit = false;
+
+        plAnimator.SetBool("Hit", isHit);
     }
 
     public void PlayerUp()
@@ -102,7 +109,8 @@ public class UpBtn : MonoBehaviour
 
     void Die()
     {
-        Debug.Log("Die");
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(90, 90, 90);
+        gameObject.transform.position = new Vector2(-5, -4.5f);
         isDead = true;
         plAs.PlayOneShot(plDeath);
         gm.GameOver();
@@ -126,11 +134,13 @@ public class UpBtn : MonoBehaviour
 
     public void PlayerHit()
     {
-        if(!isDead)
+        if(!isDead && !isHit)
         {
             curHp -= 10;
             plAs.PlayOneShot(plHit);
             HpFront.GetComponent<BarController>().SetCurHP(curHp);
+            isHit = true;
+            HitTime = Time.time;
         }
     }
 
@@ -142,5 +152,12 @@ public class UpBtn : MonoBehaviour
     public void PausedRelease()
     {
         pressdPause = false;
+    }
+
+    public void PlayerInit()
+    {
+        hp = 100f;
+        curHp = hp;
+        isDead = false;
     }
 }
