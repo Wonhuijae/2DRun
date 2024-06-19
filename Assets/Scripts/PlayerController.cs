@@ -19,7 +19,7 @@ public class UpBtn : MonoBehaviour
     private Animator plAnimator;
 
     private float upForce = 150f;
-    private float downForce = -10f;
+    private float downForce = -5f;
     private bool isDead = false;
     
     private float cnt = 0;

@@ -38,7 +38,7 @@ public class BarController : MonoBehaviour
     {
         if (_curValue > defaultValue)
         {
-            gm.GameClear();
+            gm.SetChest();
             return;
         }
         transform.localScale = new Vector3(_curValue / defaultValue, 1, 0);

@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public Image ProgBar;
     public GameObject GameOverUI;
     public GameObject Spawner;
+    public GameObject chest;
 
     private float playTime;
     private bool isGameOver = false;
@@ -41,6 +42,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (SceneManager.GetActiveScene().buildIndex != 1) return;
+
         playTime += Time.deltaTime;
         ProgBar.GetComponent<BarController>().SetCurProg(playTime);
 
@@ -58,10 +61,19 @@ public class GameManager : MonoBehaviour
         GameOverUI.SetActive(true);
     }
 
+    public void SetChest()
+    {
+        Debug.Log("상자준비");
+        chest.SetActive(true);
+        isGameOver = true;
+
+        float animTime = chest.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length;
+        Invoke("GameClear", animTime * 2);
+    }
+
     public void GameClear()
     {
         Time.timeScale = 0f;
-        isGameOver = true;
         SceneManager.LoadScene(2);
     }
 
