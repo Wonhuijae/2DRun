@@ -11,6 +11,7 @@ public class UpBtn : MonoBehaviour
     public AudioSource plAs;
     public AudioClip plDeath;
     public AudioClip plHit;
+    public AudioClip plHeal;
     public Image HpFront;
     public float hp = 100f;
 
@@ -128,7 +129,6 @@ public class UpBtn : MonoBehaviour
 
     public void Flooding()
     {
-        Debug.Log("침몰");
         Die();
     }
 
@@ -141,6 +141,17 @@ public class UpBtn : MonoBehaviour
             HpFront.GetComponent<BarController>().SetCurHP(curHp);
             isHit = true;
             HitTime = Time.time;
+        }
+    }
+
+    public void PlayerHeal()
+    {
+        if(!isDead)
+        {
+            curHp += 10;
+            plAs.PlayOneShot(plHeal);
+
+            HpFront.GetComponent<BarController>().SetCurHP(curHp);
         }
     }
 

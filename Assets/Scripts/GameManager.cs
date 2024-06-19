@@ -12,9 +12,11 @@ public class GameManager : MonoBehaviour
     public Image HpBar;
     public Image ProgBar;
     public GameObject GameOverUI;
+    public GameObject Spawner;
 
     private float playTime;
     private bool isGameOver = false;
+    private bool isHeald = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -41,6 +43,12 @@ public class GameManager : MonoBehaviour
     {
         playTime += Time.deltaTime;
         ProgBar.GetComponent<BarController>().SetCurProg(playTime);
+
+        if (!isHeald && playTime >= 30f)
+        {
+            Spawner.GetComponent<EnemySpawner>().spawnHeal();
+            isHeald = true;
+        }
     }
 
     public void GameOver()
@@ -54,6 +62,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         isGameOver = true;
+        SceneManager.LoadScene(2);
     }
 
     public void GamePause()
@@ -93,5 +102,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         playTime = 0f;
         isGameOver = false;
+        isHeald = false;
     }
 }

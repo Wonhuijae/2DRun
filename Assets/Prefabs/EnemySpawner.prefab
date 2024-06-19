@@ -47,6 +47,7 @@ MonoBehaviour:
   Reef: {fileID: 6951007931663925508, guid: 18701fcb94364e644a8b0811b4b0b453, type: 3}
   Fish: {fileID: 3762640038190494592, guid: c231678582e304fdcb4f4b47b37c2264, type: 3}
   Bubble: {fileID: 8966831070155291708, guid: 9a3162c14b82b884b843a44cb9c7f593, type: 3}
+  Potion: {fileID: 6508735347145655402, guid: a33e4eea89e794b0cae0d2c7fa649bae, type: 3}
   spawnTime: 0
   spawnMin: 1
   spawnMax: 4
